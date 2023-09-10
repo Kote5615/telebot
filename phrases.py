@@ -1,4 +1,5 @@
-hi = ['приветик', 'привет', 'hi', 'hello', 'hi']
+#здесь хранятся все возможные сообщения пользователя и ответы на них
+hi = ['приветик', 'привет', 'hi', 'hello']
 ot_hi = ['приветик', 'привет', 'hi', 'hello', 'hi']
 how_you_name = ['как тебя зовут']
 how_are_you = ['как дела', 'как жизнь', 'как у тебя дела', 'привет как дела', "как у тебя дела?", "как поживаешь?", "все хорошо?",  "ты в порядке?"]
@@ -38,9 +39,12 @@ ot_what_do_you =['Я занимаюсь любимым делом - общени
 mat = ['блять', 'нахуй', 'пиздец', 'ебутся', 'ебать', 'да блять', 'ты еблан', 'конченый', 'ты конченый', 'иди нахуй', 'бля']
 
 
-recieve = [hi, how_you_name, how_are_you, insults, ot_how_are_you, what_do_you, good_night, good_morning, mat]
-recieve_nicknames = ['hi', 'how_you_name', 'how_are_you', 'insults', 'ot_how_are_you', 'what_do_you', 'good_night', 'good_morning', 'mat']
+#здесь список переменных и список названия переменных
+recieve = [hi, how_you_name, how_are_you, insults, ot_how_are_you, what_do_you, good_night, good_morning]
+recieve_nicknames = ['hi', 'how_you_name', 'how_are_you', 'insults', 'ot_how_are_you', 'what_do_you', 'good_night', 'good_morning']
 
+
+#эта функция превращает строку вида название_переменной в название переменной вида название переменной_otv
 def xx(rec_nickname):
     a = f'ot_{str(rec_nickname)}'
     return globals()[a]
