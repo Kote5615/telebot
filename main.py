@@ -2,7 +2,7 @@ import telebot
 import random
 import phrases
 import time
-token = '1705468688:AAEcS61nmfN821wZ481eXNvHhhzDgGS2paE'
+token = '6379345549:AAEN-otxDH-btN0XesngJgVesO1TivJsYss'
 bot = telebot.TeleBot(token)
 
 
