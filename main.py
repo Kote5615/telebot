@@ -1,20 +1,64 @@
+from multiprocessing import context
+import json
+import requests
 import telebot
 import random
 import phrases
-
-bot = telebot.TeleBot('1705468688:AAEcS61nmfN821wZ481eXNvHhhzDgGS2paE')
+import time
+token = '1705468688:AAEcS61nmfN821wZ481eXNvHhhzDgGS2paE'
+bot = telebot.TeleBot(token)
 
 
 @bot.message_handler(commands=['start'])
 def start(message):
     bot.send_message(message.chat.id, 'Привет,смотри что я могу.По умолчанию я в режиме обычного диалога но есть и '
-                                      'спец режимы Скажи: /shytka- расскажу шутку, и так каждый раз когда будешь писать это слово')
+                                      'спец режимы Скажи: /joke- расскажу шутку, и так каждый раз когда будешь писать это слово')
 
 
-@bot.message_handler(commands=['shytka'])
-def shytka(message):
+@bot.message_handler(commands=['joke'])
+def joke(message):
     bot.send_message(message.chat.id, random.sample(phrases.jokes, 1))
 
+@bot.message_handler(commands=['kick'])
+def kick_user(message):
+    if message.reply_to_message:
+        chat_id = message.chat.id
+        global token
+        print(chat_id)
+        who_user_id = message.from_user.id
+        print(who_user_id)
+        whom_user_id = message.reply_to_message.from_user.id
+        whom_user_status = bot.get_chat_member(chat_id, whom_user_id).status
+        who_user_status = bot.get_chat_member(chat_id, who_user_id).status
+        # params = {
+        #     'chat_id': chat_id,
+        #     'user_id': whom_user_id,
+        # }
+        # response = requests.get(f'https://api.telegram.org/bot{token}' + '/getChatMember', params=params)
+        # json_obj = json.loads(str(list(response)))
+        #
+        # for item in json_obj:
+        #     if item.get("status") == 'left':
+        #         print("ok")
+        #     else:
+        #         print("not ok")
+
+        # check = context.bot.getChatMember(params=params)  # check if the user exist in the target group
+        # if check:
+        #     print('yes!')
+
+        # print(response.text)
+        # print(getChatMember(whom_user_status))
+        if who_user_status == 'creator' or who_user_status == 'administrator':
+            if whom_user_status == 'administrator' or whom_user_status == 'creator':
+                bot.reply_to(message, "Невозможно кикнуть администратора")
+            elif whom_user_status == 'kicked' or whom_user_status == 'left':
+                bot.reply_to(message, "Пользователя нет в группе")
+            else:
+                bot.kick_chat_member(chat_id, whom_user_id)
+                bot.reply_to(message, f"Пользователь {message.reply_to_message.from_user.username} был кикнут")
+        else:
+            bot.reply_to(message, "Вы не являетесь администратором")
 
 
 def answers_to_users_messages(message):
