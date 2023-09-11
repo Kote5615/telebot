@@ -44,7 +44,10 @@ recieve_nicknames = ['hi', 'how_you_name', 'how_are_you', 'ot_how_are_you', 'wha
 
 #эта функция превращает строку вида название_переменной в название переменной вида название переменной_otv
 def xx(rec_nickname):
-    a = f'ot_{str(rec_nickname)}'
+    if rec_nickname != 'ot_how_are_you':
+        a = f'ot_{str(rec_nickname)}'
+    else:
+        a = rec_nickname
     return globals()[a]
 
 
