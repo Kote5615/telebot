@@ -1,6 +1,3 @@
-from multiprocessing import context
-import json
-import requests
 import telebot
 import random
 import phrases
@@ -23,32 +20,11 @@ def joke(message):
 def kick_user(message):
     if message.reply_to_message:
         chat_id = message.chat.id
-        global token
-        print(chat_id)
         who_user_id = message.from_user.id
-        print(who_user_id)
         whom_user_id = message.reply_to_message.from_user.id
         whom_user_status = bot.get_chat_member(chat_id, whom_user_id).status
         who_user_status = bot.get_chat_member(chat_id, who_user_id).status
-        # params = {
-        #     'chat_id': chat_id,
-        #     'user_id': whom_user_id,
-        # }
-        # response = requests.get(f'https://api.telegram.org/bot{token}' + '/getChatMember', params=params)
-        # json_obj = json.loads(str(list(response)))
-        #
-        # for item in json_obj:
-        #     if item.get("status") == 'left':
-        #         print("ok")
-        #     else:
-        #         print("not ok")
 
-        # check = context.bot.getChatMember(params=params)  # check if the user exist in the target group
-        # if check:
-        #     print('yes!')
-
-        # print(response.text)
-        # print(getChatMember(whom_user_status))
         if who_user_status == 'creator' or who_user_status == 'administrator':
             if whom_user_status == 'administrator' or whom_user_status == 'creator':
                 bot.reply_to(message, "Невозможно кикнуть администратора")
