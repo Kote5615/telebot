@@ -1,8 +1,9 @@
 import telebot
 import random
 import phrases
+
 import time
-token = '6379345549:AAEN-otxDH-btN0XesngJgVesO1TivJsYss'
+token = '1705468688:AAEcS61nmfN821wZ481eXNvHhhzDgGS2paE'
 bot = telebot.TeleBot(token)
 
 
@@ -18,6 +19,7 @@ def uroki_1(message):
 @bot.message_handler(commands=['shytka'])
 def joke(message):
     bot.send_message(message.chat.id, random.sample(phrases.jokes, 1))
+
 
 @bot.message_handler(commands=['kick'])
 def kick_user(message):
@@ -38,16 +40,18 @@ def kick_user(message):
                 bot.reply_to(message, f"Пользователь {message.reply_to_message.from_user.username} был кикнут")
         else:
             bot.reply_to(message, "Вы не являетесь администратором")
-mat = ['бля', 'ебать', 'нахуй', 'пидор', 'пидорас', 'пиздишь', 'пидор', 'ты пидор ебанный', 'похую', 'похуй', 'того рот ебал😂😂😂😂😂😂',  'блять','шлюха', 'твою мать', 'сучара', 'долбаёб', 'скотина','дотик',
-         'хуйня', 'уёбище', 'уебан', 'пидар', 'гондон', 'пидaрас', 'пидoр'                                                           ]
+
 
 def del_mat(message):
-    for x in mat:
-        if x in message.text.lower():
-            bot.delete_message(message.chat.id, message.message_id)
-        else:
-            pass
+    with open('badwords.txt', 'r', encoding="Windows-1251") as fin:
+        matf = fin.read().split('\n')
+        for x in matf:
+            if message.text.lower().find(x) != -1 and message.text is not None:
+                bot.delete_message(message.chat.id, message.message_id)
 
+
+
+# def pass
 
 def answers_to_users_messages(message):
     flag = True  # устанавливаем флаг
